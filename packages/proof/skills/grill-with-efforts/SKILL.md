@@ -9,9 +9,9 @@ disable-model-invocation: true
 Run a one-question-at-a-time grilling session using
 [effort-modeling](../effort-modeling/SKILL.md).
 
-Offer a recommended answer for each decision, wait for the user's response,
+Offer a recommended answer for each decision, wait for the architect's response,
 and resolve dependent choices in order. Explore the codebase for facts, but
-leave choices to the user. Do not implement the plan until shared understanding
+leave choices to the architect. Do not implement the plan until shared understanding
 is confirmed.
 
 When an external source informs a choice, create a `WriteCitation` record

@@ -18,12 +18,12 @@ From the project root, use the `proof` skill's bounded reads:
 2. For the relevant Effort, inspect open Issues and blocking Decisions.
 3. Read a record or digest when a prior conclusion affects the question.
 
-Look up facts in code instead of asking. Put decisions to the user; do not
+Look up facts in code instead of asking. Put decisions to the architect; do not
 answer them autonomously.
 
 ## During the grill
 
-Ask one question at a time. Offer a recommendation, wait for the user's
+Ask one question at a time. Offer a recommendation, wait for the architect's
 answer, and resolve prerequisite choices before dependent ones.
 
 - Challenge a term that conflicts with the glossary.
@@ -70,7 +70,7 @@ create a Citation instead of copying the source into the record body:
    later, so create the Citation first.
 
 Record a Decision when it is hard to reverse, surprising without context, and
-the result of a real trade-off. Create it as proposed while the user is still
+the result of a real trade-off. Create it as proposed while the architect is still
 deciding; call `AcceptDecision` only after they commit. It rejects only
 proposals tied to the same `question` Issue, even after it closes. Use `rejects` to name other
 alternatives and `dryRun: true` to review the planned changes first.

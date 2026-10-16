@@ -40,7 +40,7 @@ If you're building something custom, piecemealed from these modules, you can mak
 
 ### `async loadConfig(...)`
 
-Pulls the user config from an optionally specified filepath. By default, this will search the current working directory.
+Pulls the architect config from an optionally specified filepath. By default, this will search the current working directory.
 
 #### options
 
@@ -51,8 +51,8 @@ Options for loading the config file, defaults to `{}`. Can pass in `cwd` as a pa
 
 ### `validateConfigHasExports(config)`
 
-Validate that the user config has a default export that is an object.
+Validate that the architect config has a default export that is an object.
 
 ### `validateConfigStructure(config)`
 
-Validate that the user config has `source` and `content` properties.
+Validate that the architect config has `source` and `content` properties.

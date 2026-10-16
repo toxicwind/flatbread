@@ -1,6 +1,6 @@
 ---
 name: proof
-description: Read and update Flatbread Proof, the repository's durable project memory, through bounded queries and typed mutations. Use for recall when resuming a known effort, checking blockers, or when the user mentions Proof or journaling. Use the write path only for a decision-relevant turning point that outlives the current PR or session and adds unique causal rationale. Never journal routine progress, handoffs, review notes, temporary gaps, implementation steps, or journal corrections.
+description: Read and update Flatbread Proof, the repository's durable project memory, through bounded queries and typed mutations. Use for recall when resuming a known effort, checking blockers, or when the architect mentions Proof or journaling. Use the write path only for a decision-relevant turning point that outlives the current PR or session and adds unique causal rationale. Never journal routine progress, handoffs, review notes, temporary gaps, implementation steps, or journal corrections.
 ---
 
 # Proof — agent journaling and recall

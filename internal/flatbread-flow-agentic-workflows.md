@@ -78,7 +78,7 @@ Use focused agents when the task is large enough to benefit from separation:
 - `flatbread-architecture-planner`: read-only contract diagnosis and implementation plan.
 - `flatbread-adversarial-reviewer`: review planned or completed changes for regressions and missing validation.
 - `flatbread-migration-executor`: implement approved migration steps only after a contract exists.
-- `flatbread-browser-verifier`: verify examples and dev loop behavior from a user-facing browser perspective using the repo-pinned `agent-browser` CLI.
+- `flatbread-browser-verifier`: verify examples and dev loop behavior from an architect-facing browser perspective using the repo-pinned `agent-browser` CLI.
 
 For schema-breaking work, use the `flatbread-major-migration` project skill and follow its checkpoints.
 
