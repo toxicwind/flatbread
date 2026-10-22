@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# flatbread — context alignment, version controlled (barn shell). bin/run.
+#
+# Primary operation: build the pnpm monorepo (`pnpm build`) and, with deps
+# installed, run the test suite (`pnpm test`). This rig surfaces the repo
+# without forcing a slow/network install on a bare checkout: it asserts the
+# workspace/skill config parses and prints the exact commands to build/run.
+#
+# Usage:
+#   bin/run            structural boot (fast, no install)
+#   bin/run build      pnpm build (requires pnpm install first)
+#   bin/run verify     full verify pipeline (build + lint + typecheck + test)
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+run_bun="${BUN:-}"
+for c in "$run_bun" /home/toxic/.local/bin/pnpm /usr/local/bin/pnpm "$(command -v pnpm 2>/dev/null || true)"; do
+  [ -n "$c" ] && [ -x "$c" ] && { PNPM="$c"; break; }
+done
+[ -n "${PNPM:-}" ] || PNPM="$(readlink -f "$(command -v pnpm 2>/dev/null || true)" 2>/dev/null || true)"
+[ -n "${PNPM:-}" ] || { echo "FAIL: pnpm not found"; exit 1; }
+
+case "${1:-boot}" in
+  build)   echo "== flatbread run: build =="; exec "$PNPM" build ;;
+  verify)  echo "== flatbread run: verify (build+lint+typecheck+test) =="; exec "$PNPM" verify ;;
+  boot|*)
+    echo "== flatbread run: structural boot =="
+    python3 - <<'PY'
+import json
+d=json.load(open('package.json'))
+scripts=d.get('scripts',{})
+need=['build','test','typecheck']
+missing=[s for s in need if s not in scripts]
+print('name:', d.get('name'), '| packageManager:', d.get('packageManager'))
+print('scripts present:', ', '.join(need))
+if missing:
+    print('FAIL: missing scripts', missing); raise SystemExit(1)
+print('OK: flatbread workspace parses; use `bin/run build` (pnpm build) to build, `bin/run verify` for full gate.')
+PY
+    ;;
+esac

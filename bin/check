@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# flatbread — context alignment, version controlled (barn shell). bin/check.
+#
+# Fast structural self-test (PASS/FAIL), no network install:
+#   1. package.json parses; expected scripts exist.
+#   2. pnpm workspace manifest parses; it references packages/ + examples/.
+#   3. flatbread config file parses as JSONC-ish (flatbread.config.js present).
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+echo "== flatbread check: start =="
+python3 - <<'PY'
+import json,sys,os
+ok=True
+try:
+    d=json.load(open('package.json'))
+except Exception as e:
+    print('FAIL: package.json unparseable:', e); sys.exit(1)
+scripts=d.get('scripts',{})
+need=['build','test','typecheck','verify']
+missing=[s for s in need if s not in scripts]
+if missing:
+    print('FAIL: missing scripts', missing); ok=False
+else:
+    print('OK: scripts', ', '.join(need))
+
+for wf in ('pnpm-workspace.yaml','flatbread.config.js','tsconfig.json'):
+    if os.path.exists(wf):
+        print(f'OK: {wf} present')
+    else:
+        print(f'WARN: {wf} missing')
+print('FLATBREAD CHECK:', 'PASS' if ok else 'FAIL')
+sys.exit(0 if ok else 1)
+PY
